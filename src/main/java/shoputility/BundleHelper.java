@@ -22,12 +22,11 @@ public class BundleHelper {
 
 	private static List<BundleResult> getBundleResult(int quantity, Set<Bundle> bundles, Map<Integer, Bundle> qtyToBundleMap) {
 		
-		// Discarding all bundles where OrderQuantity < bundleQuantity
+		// Discarding all bundles where OrderQuantity < bundleSize
 		List<Integer> refinedBundleQtyList = 
 				 bundles.stream().filter(bundle -> 
 				 	bundle.getBundleSize() <= quantity).map(bundle -> bundle.getBundleSize()).collect(Collectors.toList());
 		
-		//Sorting QtyList in natural ascending order
 		Collections.sort(refinedBundleQtyList);
 		
 		List<Integer> optimalSolution = getMinNumberOfBundles(refinedBundleQtyList, quantity);
@@ -35,7 +34,7 @@ public class BundleHelper {
 		return createBundleResultList(optimalSolution, qtyToBundleMap);
 	}
 
-	//Main algorithm to find minimum number of bundles required to serve order
+	//Main algorithm to find minimum number of bundles required to serve order, bundleSizeList is sorted
 	private static List<Integer> getMinNumberOfBundles(List<Integer> bundleSizeList, int orderQuantity) {
         
 		Map<Integer,Integer> orderQuantityToMinCount = new HashMap<Integer,Integer>();

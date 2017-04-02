@@ -18,7 +18,7 @@ public class Flower {
 	}
 	
 	public Flower(String name, String code, int quantity, double cost){
-		(new Flower(name, code)).getFlowerBundle().add(Bundle.createBundle(quantity,cost));
+		(new Flower(name, code)).getFlowerBundle().add(new Bundle(quantity,cost));
 	}
 	
 	public void addBundle(int quantity, double cost) throws Exception {
@@ -27,7 +27,7 @@ public class Flower {
 			throw new FlowerNotFoundException();
 		}
 
-		Bundle bundle = Bundle.createBundle(quantity,cost);
+		Bundle bundle = new Bundle(quantity,cost);
 		this.getFlowerBundle().add(bundle);
 	}
 	

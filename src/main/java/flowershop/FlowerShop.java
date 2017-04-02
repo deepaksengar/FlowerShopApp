@@ -68,12 +68,15 @@ public class FlowerShop implements IShop {
 		Set<Bundle> bundles = flower.getFlowerBundle();
 		
 		if(!isValid(bundles)){
-			throw new BundleNotFoundException("Bundle doesn't exist for Flower Code : " +flowerCode);
+			throw new BundleNotFoundException("Bundle doesn't exist for Flower Code : " + flowerCode);
 		}	
 		
 		return bundles;
 	}
 	
+	/**
+	 * this method process orders. Each order can have multiple order items
+	 */
 	public Map<OrderItem, List<BundleResult>> processOrder(Order order){
 		Map<OrderItem, List<BundleResult>> orderItemResult = new HashMap<OrderItem, List<BundleResult>>();
 		StringBuilder errors = new StringBuilder();
@@ -97,10 +100,16 @@ public class FlowerShop implements IShop {
 		return orderItemResult;
 	}
 	
+	/**
+	 * This method generates receipt for each Order Item.
+	 */
 	public PurchaseSummary generatePurchaseSummary(OrderItem oi, List<BundleResult> bundleRes){
 		return new PurchaseSummary(oi, bundleRes);
 	}
 
+	/**
+	 * this method prints all flower present in shop along with bundles
+	 */
 	public void printCatalogue() {
 		Map<String, Flower> catalogue = this.getFlowerShopCatalogue();
 		catalogue.forEach((key,value) -> System.out.println(value.toString()));

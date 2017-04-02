@@ -117,7 +117,6 @@ public class FlowerShopExecutor {
 				System.out.println("Invalid input : " + (input.length() == 0 ? " empty line" : input));
 				break;
 			}
-			System.out.println("input is " + input);
 		}
 		scan.close();
 	}

@@ -10,7 +10,7 @@ public class Order {
 	private Set<OrderItem> orderItems;
 	
 	/**
-	 *  
+	 *  generates order items
 	 * @param itemCodeToQuantity
 	 */
 	

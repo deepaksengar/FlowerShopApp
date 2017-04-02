@@ -17,7 +17,7 @@ public class FlowerNotFoundException extends RuntimeException {
 	}
 	
 	public FlowerNotFoundException(String message, String itemCode){
-		this(new StringBuilder().append("Flower does not for Flower Code : ").append(itemCode).append(" .").append(message).toString()); 
+		this(new StringBuilder().append("Flower does not exist for Flower Code : ").append(itemCode).append(" .").append(message).toString()); 
 	}
 
 }

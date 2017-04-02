@@ -7,10 +7,6 @@ import java.util.Map;
 
 public interface IShop {
 
-	default double calculateCost(int units, double price){
-		return units*price;
-	}
-	
 	default <E> boolean isValid(E item){
 		
 		if(item == null)
@@ -32,8 +28,4 @@ public interface IShop {
 	
 	public PurchaseSummary generatePurchaseSummary(OrderItem orderitem, List<BundleResult> bundleResult);
 	
-//	public <E> List<E> getShopCatalogue();
-	
-	//List<Bundle> getBundle(String id);
-
 }

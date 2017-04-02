@@ -18,6 +18,6 @@ public class BundleNotFoundException extends RuntimeException {
 	}
 	
 	public BundleNotFoundException(String message, String code){
-		this(new StringBuilder().append("Bundle not for Flower Code : ").append(code).append(" .").append(message).toString());
+		this(new StringBuilder().append("Bundle not found for Flower Code : ").append(code).append(" .").append(message).toString());
 	}
 }

@@ -6,13 +6,9 @@ public class Bundle {
 	private double bundleCost;
 	String currencyCode = "$";
 	
-	private Bundle(int bundleQty, double bundleCost) {
+	Bundle(int bundleQty, double bundleCost) {
 		this.setBundleSize(bundleQty);
 		this.setBundleCost(bundleCost);
-	}
-	
-	static Bundle createBundle(int bundleQty, double bundleCost) {
-		return new Bundle(bundleQty,bundleCost);
 	}
 	
 	/**
@@ -20,6 +16,10 @@ public class Bundle {
 	 */
 	@Override
 	public String toString(){
+		return this.toString("$") ;
+	}
+	
+	public String toString(String currencyCode){
 		return getBundleSize() + " @ " + currencyCode + getBundleCost() ;
 	}
 	
