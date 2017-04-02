@@ -79,15 +79,21 @@ public class FlowerShopExecutor {
 		
 		Map<OrderItem, List<BundleResult>> result = myFlowerShop.processOrder(order);
 		
+		System.out.println("\nOrder Summary :");
+		System.out.println("--------------");
+		
+		StringBuilder orderErrors = new StringBuilder();
+		
 		for(OrderItem oi : result.keySet()){
-			System.out.println("\nYour Order Summary :");
-			System.out.println("----------------------");
 			if(result.get(oi) == null || result.get(oi).isEmpty()){
-				System.out.println("Cannot Process Item with Flower-Code : " + oi.getItemCode() + " , no Bundle Config availabe for Quantity : " + oi.getOrderQuantity());
+				orderErrors.append("Cannot Process Item with Flower-Code : ").append(oi.getItemCode()).
+				append(" , no Bundle Config availabe for Quantity : ").append(oi.getOrderQuantity()).append("\n");
 			} else {
 				System.out.println((myFlowerShop.generatePurchaseSummary(oi,result.get(oi))).toString());
 			}
 		}
+		
+		if(orderErrors.length() > 0) System.out.println("Following Items cannot be fulfilled.\n"+orderErrors.toString());
 	}
 
 	// Input Reader from console to execute Order.
