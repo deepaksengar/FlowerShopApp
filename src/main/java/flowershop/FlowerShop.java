@@ -1,4 +1,4 @@
-package myflowershop;
+package flowershop;
 
 
 import java.util.HashMap;

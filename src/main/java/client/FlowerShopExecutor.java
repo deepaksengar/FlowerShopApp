@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import myflowershop.FlowerShop;
-import myflowershop.FlowerShopSeed;
+import flowershop.FlowerShop;
+import flowershop.FlowerShopOneSeed;
 import shoputility.BundleResult;
 import shoputility.Order;
 import shoputility.OrderItem;
@@ -25,7 +25,7 @@ public class FlowerShopExecutor {
 		FlowerShop myFlowerShop = new FlowerShop();
 		
 		try{
-			FlowerShopSeed.initializeFlowerShop(myFlowerShop);	//Initializing myFlowerShop with predefined catalog. 
+			FlowerShopOneSeed.initializeFlowerShop(myFlowerShop);	//Initializing myFlowerShop with predefined catalog. 
 		} catch(Exception ex){
 			System.out.println("Error Occured while putting Products in Shop : " + ex.getMessage());
 		}

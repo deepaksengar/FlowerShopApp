@@ -1,7 +1,7 @@
-package myflowershop;
+package flowershop;
 import shoputility.Flower;
 
-public class FlowerShopSeed {
+public class FlowerShopOneSeed {
 	
 	
 	public static void initializeFlowerShop(FlowerShop myShop) throws Exception{

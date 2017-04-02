@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import myflowershop.FlowerShop;
-import myflowershop.FlowerShopSeed;
+import flowershop.FlowerShop;
+import flowershop.FlowerShopOneSeed;
 import shoputility.Bundle;
 import shoputility.BundleResult;
 import shoputility.Flower;
@@ -31,7 +31,7 @@ public class FlowerShopTest {
 	private FlowerShop createTestSubject() {
 		FlowerShop myFlowerShop = new FlowerShop();
 		try{
-			FlowerShopSeed.initializeFlowerShop(myFlowerShop);
+			FlowerShopOneSeed.initializeFlowerShop(myFlowerShop);
 		} catch(Exception ex){
 			System.out.println("Error Occured while putting Products in Shop : " + ex.getMessage());
 		}
