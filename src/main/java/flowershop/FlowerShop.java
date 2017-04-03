@@ -74,6 +74,27 @@ public class FlowerShop implements IShop {
 		return bundles;
 	}
 	
+	public String executeOrder(Order order){
+		Map<OrderItem, List<BundleResult>> orderResult = processOrder(order);
+		StringBuilder result = new StringBuilder();
+		result.append("\nOrder Summary :\n--------------\n");
+		
+		StringBuilder orderErrors = new StringBuilder();
+		
+		for(OrderItem oi : orderResult.keySet()){
+			if(orderResult.get(oi) == null || orderResult.get(oi).isEmpty()){
+				orderErrors.append("Cannot Process Item with Flower-Code : ").append(oi.getItemCode()).
+				append(" , no Bundle Config availabe for Quantity : ").append(oi.getOrderQuantity()).append("\n");
+			} else {
+				result.append((generatePurchaseSummary(oi,orderResult.get(oi))).toString()).append("\n");
+			}
+		}
+		
+		if(orderErrors.length() > 0) result.append("Following Items cannot be fulfilled.\n").append(orderErrors.toString());
+	
+		return result.toString();
+	}
+	
 	/**
 	 * this method process orders. Each order can have multiple order items
 	 */
@@ -112,6 +133,7 @@ public class FlowerShop implements IShop {
 	 */
 	public void printCatalogue() {
 		Map<String, Flower> catalogue = this.getFlowerShopCatalogue();
+		System.out.println("Products Available : ");
 		catalogue.forEach((key,value) -> System.out.println(value.toString()));
 	}
 }

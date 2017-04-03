@@ -2,36 +2,23 @@ package client;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import flowershop.FlowerShop;
 import flowershop.FlowerShopOneSeed;
-import shoputility.BundleResult;
 import shoputility.Order;
-import shoputility.OrderItem;
 
 /**
  * @author deepaksinghsengar1@gmail.com
- * This is client class takes order for flower-shop and asks flower-shop to process it. 
+ * This client class takes order for flower-shop and asks flower-shop to process it. 
  */
 public class FlowerShopExecutor {
 	
 
 	public static void main(String[] args) throws IOException {
 		
-		System.out.println("Initializing FlowerShop.");
-		FlowerShop myFlowerShop = new FlowerShop();
-		
-		try{
-			FlowerShopOneSeed.initializeFlowerShop(myFlowerShop);	//Initializing myFlowerShop with predefined catalog. 
-		} catch(Exception ex){
-			System.out.println("Error Occured while putting Products in Shop : " + ex.getMessage());
-		}
-		
-		System.out.println("Products Available : ");
-		myFlowerShop.printCatalogue();
+		FlowerShop myFlowerShop = initializeMyFlowerShop();
 		
 		System.out.println("Sample Order (Quantity Code): ");
 		
@@ -47,6 +34,27 @@ public class FlowerShopExecutor {
 		
 		
 		// Additional Order Execution from eclipse console / command line
+		getNewOrderFromUser(myFlowerShop, codeToQtyMapForOrder);
+		
+		System.out.println("\n\nThank you for Shopping.\n\nExisting...");
+	}
+
+	static FlowerShop initializeMyFlowerShop() {
+		System.out.println("Initializing FlowerShop.");
+		FlowerShop myFlowerShop = new FlowerShop();
+		
+		try{
+			FlowerShopOneSeed.initializeFlowerShop(myFlowerShop);	//Initializing myFlowerShop with predefined catalog. 
+		} catch(Exception ex){
+			System.out.println("Error Occured while putting Products in Shop : " + ex.getMessage());
+		}
+		
+		myFlowerShop.printCatalogue();
+		return myFlowerShop;
+	}
+	
+	static void getNewOrderFromUser(FlowerShop myFlowerShop, Map<String, Integer> codeToQtyMapForOrder)
+			throws IOException {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("\nDo you want to place order? enter Y or Yes, else press enter to quit.\n");
 		String choice = scan.nextLine();
@@ -58,11 +66,9 @@ public class FlowerShopExecutor {
 		} else {
 			scan.close();
 		}
-		
-		System.out.println("\n\nThank you for Shopping.\n\nExisting...");
 	}
 	
-	// *functions to execute additional order request.
+	// *functions to execute order request.
 	private static void executeOrder(FlowerShop myFlowerShop, Map<String, Integer> codeToQtyMapForOrder) {
 		
 		if(codeToQtyMapForOrder.keySet().size() == 0){
@@ -74,26 +80,12 @@ public class FlowerShopExecutor {
 		Order order = new Order(codeToQtyMapForOrder);
 		
 		/**
-		 * processOrder(Order) function executes order for flowerShop and returns result of optimal bundle solution for each order item in order.
+		 * executeOrder(Order) function executes order for flowerShop and generates PurchaseSummary for each order item..
 		 */
 		
-		Map<OrderItem, List<BundleResult>> result = myFlowerShop.processOrder(order);
+		String result = myFlowerShop.executeOrder(order);
 		
-		System.out.println("\nOrder Summary :");
-		System.out.println("--------------");
-		
-		StringBuilder orderErrors = new StringBuilder();
-		
-		for(OrderItem oi : result.keySet()){
-			if(result.get(oi) == null || result.get(oi).isEmpty()){
-				orderErrors.append("Cannot Process Item with Flower-Code : ").append(oi.getItemCode()).
-				append(" , no Bundle Config availabe for Quantity : ").append(oi.getOrderQuantity()).append("\n");
-			} else {
-				System.out.println((myFlowerShop.generatePurchaseSummary(oi,result.get(oi))).toString());
-			}
-		}
-		
-		if(orderErrors.length() > 0) System.out.println("Following Items cannot be fulfilled.\n"+orderErrors.toString());
+		System.out.println(result);
 	}
 
 	// Input Reader from console to execute Order.
